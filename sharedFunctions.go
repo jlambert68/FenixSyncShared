@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+// HashSingleValue :
 // Hash a single value
 func HashSingleValue(valueToHash string) (hashValue string) {
 
@@ -19,6 +20,8 @@ func HashSingleValue(valueToHash string) (hashValue string) {
 
 }
 
+// HashValues :
+// Hash together a array of values. If input array consist of non-hash values the add array position to value each value before hashong
 func HashValues(valuesToHash []string, isNonHashValue bool) string {
 
 	hashString := ""
@@ -46,6 +49,7 @@ func HashValues(valuesToHash []string, isNonHashValue bool) string {
 
 }
 
+// GenerateDatetimeTimeStampForDB
 // Generate DataBaseTimeStamp, eg '2022-02-08 17:35:04.000000'
 func GenerateDatetimeTimeStampForDB() (currentTimeStampAsString string) {
 

@@ -1,12 +1,11 @@
 package fenixTestDatashared
 
 import (
+	"github.com/go-gota/gota/dataframe"
 	"github.com/go-gota/gota/series"
 	"log"
 	"sort"
 	"strings"
-
-	"github.com/go-gota/gota/dataframe"
 )
 
 func setFromList(list []string) (set []string) {

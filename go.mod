@@ -5,8 +5,6 @@ go 1.17
 require (
 	github.com/go-gota/gota v0.12.0
 	github.com/jackc/pgx/v4 v4.15.0
-	github.com/jlambert68/FenixGrpcApi v0.0.0-20220211160328-11d38ab66c0a
-	github.com/sirupsen/logrus v1.8.1
 )
 
 require (
