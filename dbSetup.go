@@ -1,4 +1,4 @@
-package fenixTestDatashared
+package fenixSyncShared
 
 import (
 	"context"

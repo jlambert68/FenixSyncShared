@@ -1,4 +1,4 @@
-package fenixTestDatashared
+package fenixSyncShared
 
 import (
 	"github.com/go-gota/gota/dataframe"

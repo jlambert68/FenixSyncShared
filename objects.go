@@ -1,4 +1,4 @@
-package fenixTestDatashared
+package fenixSyncShared
 
 // ***********************************************************************************************************
 // The following variables receives their values from environment variables
