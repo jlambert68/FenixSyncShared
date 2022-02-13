@@ -1,4 +1,4 @@
-module FenixSyncShared
+module github.com/jlambert68/FenixSyncShared
 
 go 1.17
 
