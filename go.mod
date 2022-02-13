@@ -1,4 +1,4 @@
-module FenixTestDataShared
+module fenixSyncShared
 
 go 1.17
 
