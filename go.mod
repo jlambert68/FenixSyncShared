@@ -1,4 +1,4 @@
-module fenixSyncShared
+module FenixSyncShared
 
 go 1.17
 
