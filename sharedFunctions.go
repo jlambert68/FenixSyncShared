@@ -40,8 +40,8 @@ func HashValues(valuesToHash []string, isNonHashValue bool) string {
 	//Hash all values
 	for _, valueToHash := range valuesToHash {
 
-		hashString = hashString + valueToHash
-		hashString = HashSingleValue(hashString)
+		hashString = sha256Hash + valueToHash
+		sha256Hash = HashSingleValue(hashString)
 
 	}
 
