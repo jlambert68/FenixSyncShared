@@ -139,7 +139,7 @@ func recursiveTreeCreator(level int, currentMerkleFilterPath string, dataFrameTo
 			if len(localMerkleHash) != 0 {
 				valuesToHash = append(valuesToHash, localMerkleHash)
 			} else {
-				log.Fatalln("We are at the end node - **** Should never happened ****")
+				log.Fatalln("We are at the end node - **** Should never happened **** (5d53175e-2a50-45a2-85bf-47711df083e9)")
 			}
 		}
 
@@ -305,7 +305,7 @@ func calculateMerkleHashFromMerkleTreeLeafNodes(merkleLevel int, merkleTreeLeafN
 		if len(localMerkleHash) != 0 {
 			valuesToHash = append(valuesToHash, localMerkleHash)
 		} else {
-			log.Fatalln("We are at the end node - **** Should never happened ****")
+			log.Fatalln("We are at the end node - **** Should never happened **** (9dfde77e-5f15-4c59-8f5f-967dfa0a1067)")
 		}
 	}
 
@@ -361,7 +361,7 @@ func ExtractMerkleRootHashFromMerkleTree(merkleTree dataframe.DataFrame) (merkle
 
 	// The result should be just one line
 	if len(merkleRootHashArray) != 1 {
-		log.Fatalln(" The result should be just one line for MerkleRootHash. Ending this misery! ")
+		log.Fatalln(" The result should be just one line for MerkleRootHash. Ending this misery! (2761e059-4aa6-4872-b500-54376d870f7b)")
 		merkleRootHash = "666"
 
 	} else {
