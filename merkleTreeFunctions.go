@@ -46,11 +46,11 @@ func hashChildrenAndWriteToDataStore(level int, currentMerklePath string, values
 
 	MerkleHash := sha256Hash
 
-	// # Add MerkleHash and sub leaf nodes to table if not end node. If End node then only save ref to itself
+	// # Add MerkleHash and sub leaf nodes to table if not end node. If End node then only save ref to itselfs by SHA256(NodeHash + NodeHash)
 	if isEndLeafNode == true {
 
-		// For LeafNodes the childHash will be calculated by using SHA256(NodeHash)
-		leafNodeChildHash := HashSingleValue(MerkleHash)
+		// For LeafNodes the childHash will be calculated by using SHA256(NodeHash + NodeHash)
+		leafNodeChildHash := HashSingleValue(MerkleHash + MerkleHash)
 
 		// Add row
 		newRowDataFrame := dataframe.New(
