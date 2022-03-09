@@ -37,6 +37,13 @@ var LocationForFenixTestDataServerTypeMapping = map[ExecutionLocationTypeType]st
 	GCP:               "GCP",
 }
 
+type MerkletreeStruct struct {
+	MerkleLevel     int
+	MerklePath      string
+	MerkleHash      string
+	MerkleChildHash string
+}
+
 // Address to Fenix TestData Server & Client, will have their values from Environment variables at startup
 /*
 var (

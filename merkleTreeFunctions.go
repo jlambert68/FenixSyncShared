@@ -3,6 +3,7 @@ package fenixSyncShared
 import (
 	"github.com/go-gota/gota/dataframe"
 	"github.com/go-gota/gota/series"
+	"github.com/sirupsen/logrus"
 	"log"
 	"sort"
 	"strings"
@@ -425,4 +426,48 @@ func IsNotInListFilter(arrayToCompareWith []string) func() func(el series.Elemen
 		}
 	}
 	return isNaNFunction
+}
+
+// Convert leafNodeHash and LeafNodeName message into a MerkleTree DataFrame object;
+// leafNodesMessage [][]string; [[<LeafNodeHash>, <LeafNodeName], [<>, <>]]
+func ConvertLeafNodeMessagesToDataframe(leafNodesMessage [][]string, logger *logrus.Logger) dataframe.DataFrame {
+	// leafNodesMessage[n] = 'leafNode'
+	// leafNode[0] = 'LeafNodeHash'
+	// leafNode[1] = 'LeafNodeName'
+
+	logger.WithFields(logrus.Fields{
+		"id": "c0b9dd6c-2431-4b71-b476-9d71eebf6d29",
+	}).Debug("Incoming gRPC 'convertLeafNodeMessagesToDataframe'")
+
+	defer logger.WithFields(logrus.Fields{
+		"id": "ce67d061-777b-4cc6-9672-d0cfdf3f2c83",
+	}).Debug("Outgoing gRPC 'convertLeafNodeMessagesToDataframe'")
+
+	var myMerkleTree []MerkletreeStruct
+
+	// Number of MerkleLevels for MerkleTree
+	var numberOfMerkleLevels = 0
+
+	// Loop all MerkleTreeNodes and create a DataFrame for the data
+	for _, leafNode := range leafNodesMessage {
+
+		// Get number of MerkleLevels for MerkleTree
+		if numberOfMerkleLevels == 0 {
+			numberOfMerkleLevels = strings.Count(leafNode[1], "/")
+		}
+
+		// Create row and add to MerkleTree
+		myMerkleTreeRow := MerkletreeStruct{
+			MerkleLevel:     numberOfMerkleLevels,
+			MerklePath:      leafNode[1],
+			MerkleHash:      leafNode[0],
+			MerkleChildHash: "1", // Set '1', doesn't matter
+		}
+		myMerkleTree = append(myMerkleTree, myMerkleTreeRow)
+
+	}
+
+	df := dataframe.LoadStructs(myMerkleTree)
+
+	return df
 }
