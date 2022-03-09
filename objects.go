@@ -10,6 +10,9 @@ var ExecutionLocationForClient ExecutionLocationTypeType
 // LocationForFenixTestDataServer
 var ExecutionLocationForFenixTestDataServer ExecutionLocationTypeType
 
+// TimeStampLayOut - Format for Miliseconds-format
+const TimeStampLayOut = "2006-01-02 15:04:05.000000" //milliseconds
+
 // Definitions for where client and Fenix Server is running
 type ExecutionLocationTypeType int
 
