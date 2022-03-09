@@ -9,6 +9,7 @@ import (
 )
 
 var DbPool *pgxpool.Pool
+var dbSchema string
 
 // mustGetEnv is a helper function for getting environment variables.
 // Displays a warning if the environment variable is not set.
@@ -33,6 +34,8 @@ func ConnectToDB() {
 		dbName    = MustGetEnvironmentVariable("DB_NAME") // e.g. 'my-database'
 
 	)
+
+	dbSchema = MustGetEnvironmentVariable("DB_SCHEMA") // e.g. 'public'
 
 	// If the optional DB_HOST environment variable is set, it contains
 	// the IP address and port number of a TCP connection pool to be created,
@@ -69,4 +72,9 @@ func ConnectToDB() {
 		os.Exit(1)
 	}
 	fmt.Println(version)
+}
+
+// Get the used Schema for CloudDB
+func getDBSchema() string {
+	return dbSchema
 }
