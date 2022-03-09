@@ -75,6 +75,6 @@ func ConnectToDB() {
 }
 
 // Get the used Schema for CloudDB
-func getDBSchema() string {
+func GetDBSchemaName() string {
 	return dbSchema
 }
