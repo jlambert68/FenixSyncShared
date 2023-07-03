@@ -27,12 +27,12 @@ func ConnectToDB() {
 	var err error
 
 	var (
-		dbUser    = MustGetEnvironmentVariable("DB_USER") // e.g. 'my-db-user'
-		dbPwd     = MustGetEnvironmentVariable("DB_PASS") // e.g. 'my-db-password'
-		dbTCPHost = MustGetEnvironmentVariable("DB_HOST") // e.g. '127.0.0.1' ('172.17.0.1' if deployed to GAE Flex)
-		dbPort    = MustGetEnvironmentVariable("DB_PORT") // e.g. '5432'
-		dbName    = MustGetEnvironmentVariable("DB_NAME") // e.g. 'my-database'
-
+		dbUser               = MustGetEnvironmentVariable("DB_USER")                 // e.g. 'my-db-user'
+		dbPwd                = MustGetEnvironmentVariable("DB_PASS")                 // e.g. 'my-db-password'
+		dbTCPHost            = MustGetEnvironmentVariable("DB_HOST")                 // e.g. '127.0.0.1' ('172.17.0.1' if deployed to GAE Flex)
+		dbPort               = MustGetEnvironmentVariable("DB_PORT")                 // e.g. '5432'
+		dbName               = MustGetEnvironmentVariable("DB_NAME")                 // e.g. 'my-database'
+		dbPoolMaxConnections = MustGetEnvironmentVariable("DB_POOL_MAX_CONNECTIONS") // e.g. '10'
 	)
 
 	dbSchema = MustGetEnvironmentVariable("DB_SCHEMA") // e.g. 'public'
@@ -42,7 +42,7 @@ func ConnectToDB() {
 	// such as "127.0.0.1:5432". If DB_HOST is not set, a Unix socket
 	// connection pool will be created instead.
 	if dbTCPHost != "GCP" {
-		dbURI = fmt.Sprintf("host=%s user=%s password=%s port=%s database=%s", dbTCPHost, dbUser, dbPwd, dbPort, dbName)
+		dbURI = fmt.Sprintf("host=%s user=%s password=%s port=%s database=%s pool_max_conns=%s", dbTCPHost, dbUser, dbPwd, dbPort, dbName, dbPoolMaxConnections)
 
 	} else {
 
@@ -53,7 +53,7 @@ func ConnectToDB() {
 			socketDir = "/cloudsql"
 		}
 
-		dbURI = fmt.Sprintf("user=%s password=%s database=%s host=%s/%s", dbUser, dbPwd, dbName, socketDir, dbInstanceConnectionName)
+		dbURI = fmt.Sprintf("user=%s password=%s database=%s host=%s/%s pool_max_conns=%s", dbUser, dbPwd, dbName, socketDir, dbInstanceConnectionName, dbPoolMaxConnections)
 
 	}
 
