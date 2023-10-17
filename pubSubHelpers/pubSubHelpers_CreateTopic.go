@@ -1,7 +1,6 @@
 package pubSubHelpers
 
 import (
-	"FenixGuiExecutionServer/common_config"
 	"cloud.google.com/go/pubsub"
 	"context"
 	"errors"
@@ -19,7 +18,7 @@ func createTopic(topicID string) (createdTopic *pubsub.Topic, err error) {
 
 	if err != nil {
 
-		common_config.Logger.WithFields(logrus.Fields{
+		logger.WithFields(logrus.Fields{
 			"ID":           "b5c955cb-2b2b-47e0-a908-1294da40c930",
 			"err":          err,
 			"pubSubClient": pubSubClient,
@@ -30,7 +29,7 @@ func createTopic(topicID string) (createdTopic *pubsub.Topic, err error) {
 
 	if pubSubClient == nil {
 
-		common_config.Logger.WithFields(logrus.Fields{
+		logger.WithFields(logrus.Fields{
 			"ID":           "50b55582-70ce-4864-9709-b8bc79fd2382",
 			"pubSubClient": pubSubClient,
 		}).Error("Got some problem when creating 'pubsub.NewClient'")
@@ -45,7 +44,7 @@ func createTopic(topicID string) (createdTopic *pubsub.Topic, err error) {
 	createdTopic, err = pubSubClient.CreateTopic(ctx, topicID)
 	if err != nil {
 
-		common_config.Logger.WithFields(logrus.Fields{
+		logger.WithFields(logrus.Fields{
 			"ID":  "1ce8e7f5-bbf6-4c9e-9e52-04d292ae0147",
 			"err": err,
 		}).Error("Got some problem when creating a new PubSub Topic")

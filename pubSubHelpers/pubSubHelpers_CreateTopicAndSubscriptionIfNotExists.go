@@ -1,13 +1,14 @@
 package pubSubHelpers
 
 import (
-	"FenixGuiExecutionServer/common_config"
 	"cloud.google.com/go/pubsub"
 )
 
 // CreateTopicDeadLettingAndSubscriptionIfNotExists
 // Create Topic, TopicSubscription, DeadLetteringTopic and DeadLetteringTopicSubscription based on 'Topic-name'
-func CreateTopicDeadLettingAndSubscriptionIfNotExists(pubSubTopicToVerify string) (err error) {
+func CreateTopicDeadLettingAndSubscriptionIfNotExists(
+	pubSubTopicToVerify string,
+	testExecutionStatusPubSubTopicSchema string) (err error) {
 
 	var foundDeadLettingTopics *pubsub.Topic
 	var pubSubTopics []*pubsub.Topic
@@ -86,7 +87,7 @@ func CreateTopicDeadLettingAndSubscriptionIfNotExists(pubSubTopicToVerify string
 
 	// if the Topic was not found then create the Topic
 	if topicExists == false {
-		_, err = CreateTopicWithSchema(pubSubTopicToVerify, common_config.TestExecutionStatusPubSubTopicSchema)
+		_, err = CreateTopicWithSchema(pubSubTopicToVerify, testExecutionStatusPubSubTopicSchema)
 		if err != nil {
 			return err
 		}

@@ -1,7 +1,6 @@
 package pubSubHelpers
 
 import (
-	"FenixGuiExecutionServer/common_config"
 	"cloud.google.com/go/pubsub"
 	"context"
 	"errors"
@@ -20,7 +19,7 @@ func ListTopics() (pubSubTopics []*pubsub.Topic, err error) {
 
 	if err != nil {
 
-		common_config.Logger.WithFields(logrus.Fields{
+		logger.WithFields(logrus.Fields{
 			"ID":  "358e33c0-f993-4ce6-95e1-538bd14c466b",
 			"err": err,
 		}).Error("Got some problem when creating 'pubsub.NewClient'")
@@ -41,7 +40,7 @@ func ListTopics() (pubSubTopics []*pubsub.Topic, err error) {
 		}
 		if err != nil {
 
-			common_config.Logger.WithFields(logrus.Fields{
+			logger.WithFields(logrus.Fields{
 				"ID":  "2029f0b4-be98-4057-adf9-911147adfce1",
 				"err": err,
 			}).Error("Got some problem iterating the topics-response")

@@ -1,7 +1,6 @@
 package pubSubHelpers
 
 import (
-	"FenixGuiExecutionServer/common_config"
 	"cloud.google.com/go/pubsub"
 	"context"
 	"github.com/sirupsen/logrus"
@@ -23,7 +22,7 @@ func CreateTopicSubscription(topicID string, deadLetteringTopicID string) (err e
 
 	if err != nil {
 
-		common_config.Logger.WithFields(logrus.Fields{
+		logger.WithFields(logrus.Fields{
 			"ID":  "815eaa22-bbee-47e3-b83f-6374b587e691",
 			"err": err,
 		}).Error("Got some problem when creating 'pubsub.NewClient'")
@@ -79,7 +78,7 @@ func CreateTopicSubscription(topicID string, deadLetteringTopicID string) (err e
 	_, err = pubSubClient.CreateSubscription(ctx, topicSubscriptionId, subscriptionConfig)
 	if err != nil {
 
-		common_config.Logger.WithFields(logrus.Fields{
+		logger.WithFields(logrus.Fields{
 			"ID":  "be22edc9-cfb8-45ff-b751-83c87bef56e4",
 			"err": err,
 		}).Error("Got some problem when creating a new PubSub Topic-Subscription")

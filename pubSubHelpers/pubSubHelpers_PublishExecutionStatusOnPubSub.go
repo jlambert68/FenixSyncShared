@@ -1,7 +1,6 @@
 package pubSubHelpers
 
 import (
-	"FenixGuiExecutionServer/common_config"
 	"cloud.google.com/go/pubsub"
 	"context"
 	"crypto/tls"
@@ -15,7 +14,7 @@ import (
 
 func PublishExecutionStatusOnPubSub(topicID string, msg string) (
 	returnMessageAckNack bool, returnMessageString string, err error) {
-	projectID := common_config.GcpProject
+	projectID := gcpProject
 
 	// Remove any unwanted characters
 	// Remove '\n'
@@ -44,7 +43,7 @@ func PublishExecutionStatusOnPubSub(topicID string, msg string) (
 
 	if err != nil {
 
-		common_config.Logger.WithFields(logrus.Fields{
+		logger.WithFields(logrus.Fields{
 			"ID":  "19951388-cad6-4f4f-b1d3-a1e8cf758fb4",
 			"err": err,
 		}).Error("Got some problem when creating 'pubsub.NewClient'")
@@ -65,7 +64,7 @@ func PublishExecutionStatusOnPubSub(topicID string, msg string) (
 	id, err := pubSubResult.Get(ctx)
 	if err != nil {
 
-		common_config.Logger.WithFields(logrus.Fields{
+		logger.WithFields(logrus.Fields{
 			"ID":  "dc8bb67a-2caf-4a46-8a5c-598e253515c5",
 			"msg": msg,
 		}).Error(fmt.Errorf("pubsub: pubSubResult.Get: %w", err))
@@ -74,7 +73,7 @@ func PublishExecutionStatusOnPubSub(topicID string, msg string) (
 
 	}
 
-	common_config.Logger.WithFields(logrus.Fields{
+	logger.WithFields(logrus.Fields{
 		"ID": "8da81faa-a2a9-4130-83c8-e90b8fbbb955",
 		//"token": token,
 	}).Debug(fmt.Sprintf("Published a message; msg ID: %v", id))
