@@ -36,6 +36,10 @@ func ListSubscriptions(topicID string) (pubSubTopicSubscriptions []*pubsub.Subsc
 		var pubSubTopicSubscription *pubsub.Subscription
 		pubSubTopicSubscription, err = pubSubscriptionIterator.Next()
 		if errors.Is(err, iterator.Done) {
+
+			// Clear the error before leaving
+			err = nil
+
 			break
 		}
 		if err != nil {

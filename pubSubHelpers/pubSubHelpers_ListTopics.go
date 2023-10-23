@@ -36,6 +36,10 @@ func ListTopics() (pubSubTopics []*pubsub.Topic, err error) {
 		var pubSubTopic *pubsub.Topic
 		pubSubTopic, err = pubSubTopicIterator.Next()
 		if errors.Is(err, iterator.Done) {
+
+			// Clear the error before leaving
+			err = nil
+
 			break
 		}
 		if err != nil {
