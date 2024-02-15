@@ -76,13 +76,13 @@ func ExtractEnvironmentVariableOrInjectedEnvironmentVariable(
 	} else {
 
 		// Use normal Environment Variables
-		environmentVariableName = os.Getenv(environmentVariableName)
+		environmentVariableValue = os.Getenv(environmentVariableName)
 
 	}
 
 	// // No environment variable found or there is no value. No value is not allowed
 	if environmentVariableValue == "" {
-		log.Fatalf("Warning: '%s' environment variable is not set.", environmentVariableName)
+		log.Fatalf("Warning: '%s' environment variable is not set.", environmentVariableValue)
 	}
 
 	return environmentVariableValue
