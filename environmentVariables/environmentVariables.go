@@ -71,7 +71,7 @@ func ExtractEnvironmentVariableOrInjectedEnvironmentVariable(
 	if tempUseInjectedEnvironmentVariablesValue == true {
 
 		// Use Injected Environment Variables
-		environmentVariableName = *injectedVariableValue
+		environmentVariableValue = *injectedVariableValue
 
 	} else {
 
@@ -82,7 +82,7 @@ func ExtractEnvironmentVariableOrInjectedEnvironmentVariable(
 
 	// // No environment variable found or there is no value. No value is not allowed
 	if environmentVariableValue == "" {
-		log.Fatalf("Warning: '%s' environment variable is not set.", environmentVariableValue)
+		log.Fatalf("Warning: '%s' environment variable is not set.", environmentVariableName)
 	}
 
 	return environmentVariableValue
