@@ -21,8 +21,14 @@ func PublishExecutionStatusOnPubSub(topicID string, msg string) (
 	var cleanedMessage string
 	cleanedMessage = strings.Replace(msg, "\n", "", -1)
 
+	// Replace '\\\"' with '###{!TEMP!}###'
+	cleanedMessage = strings.ReplaceAll(cleanedMessage, "\\\\\\\"", "###{!TEMP!}###")
+
 	// Replace '\"' with '"'
 	cleanedMessage = strings.ReplaceAll(cleanedMessage, "\\\"", "\"")
+
+	// Replace '###{!TEMP!}###' with '"'
+	cleanedMessage = strings.ReplaceAll(cleanedMessage, "###{!TEMP!}###", "\\\"")
 
 	var pubSubClient *pubsub.Client
 	var opts []grpc.DialOption

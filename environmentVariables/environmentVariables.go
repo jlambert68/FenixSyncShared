@@ -43,26 +43,31 @@ func ExtractEnvironmentVariableOrInjectedEnvironmentVariable(
 	injectedVariableNameAsString = "Injected_" + environmentVariableName
 
 	// Verify that Variable exists in map for injected Environment Variables
-	var injectedVariableValue *string
+	var injectedVariableValuePtr *string
 	var existInMap bool
-	injectedVariableValue, existInMap = tempInjectedVariablesMap[injectedVariableNameAsString]
+	injectedVariableValuePtr, existInMap = tempInjectedVariablesMap[injectedVariableNameAsString]
 	if existInMap == false {
 		// If the 'Injected Variable' is missing then end this misery programs life
 		log.Fatalln("Injected Environment variable '" + injectedVariableNameAsString + "' doesn't exist in 'injectedVariablesMap'")
 	}
 
 	// Decide if 'Environment Variable' or 'Injected Environment Variable' should be used
-	var tempUseInjectedEnvironmentVariablesValueAsString *string
+	var tempUseInjectedEnvironmentVariablesValueAsStringPtr *string
+	var tempUseInjectedEnvironmentVariablesValueAsString string
 	var tempUseInjectedEnvironmentVariablesValue bool
-	tempUseInjectedEnvironmentVariablesValueAsString, existInMap = tempInjectedVariablesMap[useInjectedEnvironmentVariablesVariableName]
+	tempUseInjectedEnvironmentVariablesValueAsStringPtr, existInMap = tempInjectedVariablesMap[useInjectedEnvironmentVariablesVariableName]
+
 	if existInMap == false {
 		// If the 'Injected Variable' is missing then end this misery programs life
 		log.Fatalln("Injected Environment variable '" + useInjectedEnvironmentVariablesVariableName + "' doesn't exist in 'injectedVariablesMap'")
 	} else {
+		// Convert from pointer into variable
+		tempUseInjectedEnvironmentVariablesValueAsString = *tempUseInjectedEnvironmentVariablesValueAsStringPtr
+
 		// Validate that variables only contains a boolean
-		tempUseInjectedEnvironmentVariablesValue, err = strconv.ParseBool(*tempUseInjectedEnvironmentVariablesValueAsString)
+		tempUseInjectedEnvironmentVariablesValue, err = strconv.ParseBool(tempUseInjectedEnvironmentVariablesValueAsString)
 		if err != nil {
-			fmt.Println("Couldn't convert injected environment variable '"+useInjectedEnvironmentVariablesVariableName+"' to a boolean, error: ", *tempUseInjectedEnvironmentVariablesValueAsString, err)
+			fmt.Println("Couldn't convert injected environment variable '"+useInjectedEnvironmentVariablesVariableName+"' to a boolean, error: ", tempUseInjectedEnvironmentVariablesValueAsString, err)
 			os.Exit(0)
 		}
 	}
@@ -71,18 +76,23 @@ func ExtractEnvironmentVariableOrInjectedEnvironmentVariable(
 	if tempUseInjectedEnvironmentVariablesValue == true {
 
 		// Use Injected Environment Variables
-		environmentVariableValue = *injectedVariableValue
+		environmentVariableValue = *injectedVariableValuePtr
+
+		// // No environment variable found or there is no value. No value is not allowed
+		if environmentVariableValue == "" {
+			log.Fatalf("Warning: '%s' environment variable is not set.", injectedVariableNameAsString)
+		}
 
 	} else {
 
 		// Use normal Environment Variables
 		environmentVariableValue = os.Getenv(environmentVariableName)
 
-	}
+		// // No environment variable found or there is no value. No value is not allowed
+		if environmentVariableValue == "" {
+			log.Fatalf("Warning: '%s' environment variable is not set.", environmentVariableName)
+		}
 
-	// // No environment variable found or there is no value. No value is not allowed
-	if environmentVariableValue == "" {
-		log.Fatalf("Warning: '%s' environment variable is not set.", environmentVariableName)
 	}
 
 	return environmentVariableValue
